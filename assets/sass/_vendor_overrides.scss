@@ -1,0 +1,6 @@
+// Chosen Overrides
+.modal .chosen-container { min-width: 20em; }
+
+.main-header .sidebar-toggle::before {
+    content: "";
+}

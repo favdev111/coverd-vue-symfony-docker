@@ -1,0 +1,51 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '%kernel.project_dir%/src/*'
+        exclude: '%kernel.project_dir%/src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '%kernel.project_dir%/src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    app.listener.hash.password.listener:
+        class: App\Listener\HashPasswordListener
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    app.listener.client:
+        class: App\Listener\ClientListener
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    app.listener.partner:
+        class: App\Listener\PartnerListener
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    sam_j_fractal.manager:
+        class: SamJ\FractalBundle\ContainerAwareManager
+        public: true
+
+    user_interface.listener:
+        class: App\Listener\ExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

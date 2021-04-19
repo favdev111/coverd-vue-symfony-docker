@@ -1,0 +1,47 @@
+{% extends "emails/base-email.html.twig" %}
+
+{% block header_text %}Order updated: {{ order.sequenceNo }}{% endblock %}
+
+{% block content %}
+    <row class="bg-white">
+        <columns>
+            <p class="fs-14 dark text-left mb-20">Hello {{ partner.title }},</p>
+            <p class="fs-12 dark text-left mb-10">Here is an update on your Partner Order</p>
+        </columns>
+        <columns>
+            <button href="{{ url('app_home_home', {'_fragment': '/orders/partner/' ~ order.id}) }}">View Order</button>
+        </columns>
+    </row>
+    <row class="bg-white">
+        <columns>
+            <h4>Order Details</h4>
+            <callout class="secondary">
+                <row>
+                    <columns>
+                        <table>
+                            <tr>
+                                <th><strong>Product</strong></th>
+                                <th class="text-right"><strong>Quantity</strong></th>
+                            </tr>
+                            {% for line in order.getAggregateLineItems()|sort((a, b) => a.product.orderIndex <=> b.product.orderIndex) %}
+                                <tr>
+                                    <td>{{ line.product.name }}</td>
+                                    <td class="text-right">{{ line.quantity }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </columns>
+                </row>
+            </callout>
+        </columns>
+    </row>
+    <spacer class="bg-blue" size="5"></spacer>
+    <row class="bg-light-gray">
+        <columns>
+            <p class="fs-10 gray text-center mb-10">Morbi nec euismod sapien, vitae vulputate tellus. Mauris condimentum
+                orci ut metus ornare ultrices. Mauris ac lorem ut orci congue consequat. Nam auctor tortor ut faucibus
+                cursus. Fusce dapibus metus ut massa ultrices commodo. Maecenas a purus sapien. Ut ornare tristique ex,
+                nec pellentesque dolor vulputate ut.</p>
+        </columns>
+    </row>
+{% endblock %}

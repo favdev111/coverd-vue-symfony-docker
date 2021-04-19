@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    {#<meta name="csrf-token" content="{{ csrf_token() }}">#}
+
+    <title>coverd.io</title>
+
+    {% block stylesheets %}
+    <!-- Styles -->
+        <link rel="stylesheet" href="/build/fonts.css">
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <b>COVERd</b>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Sign in to start your session</p>
+        {% block content %}{% endblock %}
+{# stock AdminLTE
+        <a href="#">I forgot my password</a><br>
+        <a href="register.html" class="text-center">Register a new membership</a>
+#}
+
+    </div>
+    <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+</body>
+</html>
+

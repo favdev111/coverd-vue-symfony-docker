@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+    nginx:
+        volumes:
+            - project_root:/app:ro
+            - ./docker/config/app.nginx.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - app
+            - unison
+    app:
+        volumes:
+            - project_root:/app
+            - ./docker/config/app.php.ini:/usr/local/etc/php/conf.d/coverd-overrides.ini
+        depends_on:
+            - db
+            - unison
+            - mail
+    unison:
+        image: docksal/unison
+        volumes:
+            - ./:/source
+            - project_root:/destination
+        environment:
+            SYNC_DESTINATION: /destination
+            SYNC_PREFER: newer
+            SYNC_MAX_INOTIFY_WATCHES: 524288
+            SYNC_VERBOSE: 1
+            SYNC_NODELETE_SOURCE: 0
+            UNISON_UID: ${HOST_UID:-0}
+            UNISON_GID: ${HOST_GID:-0}
+            SYNC_EXTRA_UNISON_PROFILE_OPTS: |
+                ignore = Path .idea
+                ignore = BelowPath .idea
+                ignore = Path .git
+                ignore = BelowPath .git
+                ignore = Path var/*
+                ignore = Path var/sessions/*
+        privileged: true
+    mail:
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
+
+volumes:
+    project_root:

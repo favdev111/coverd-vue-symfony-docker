@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddressView container is empty when value prop is empty 1`] = `
+<div
+  class="addressform"
+>
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+</div>
+`;
+
+exports[`AddressView doesn't show title when hasTitle is false 1`] = `
+<div
+  class="addressform"
+>
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+</div>
+`;
+
+exports[`AddressView is empty when value prop is undefined 1`] = `<!---->`;
+
+exports[`AddressView shows full address 1`] = `
+<div
+  class="addressform"
+>
+  <!---->
+   
+  <!---->
+   
+  <div>
+    
+        123 Main Ave
+    <br />
+  </div>
+   
+  <div>
+    
+        Suite 321
+    <br />
+  </div>
+   
+  <div
+    data-testid="city-state-postalcode"
+  >
+    <span>
+       Miami, 
+    </span>
+     
+    <span>
+      
+            Florida
+        
+    </span>
+     
+    <span>
+      
+            12345
+        
+    </span>
+  </div>
+   
+  <div>
+    
+        United States
+    <br />
+  </div>
+</div>
+`;
+
+exports[`AddressView shows partial city, state, and postal code line 1`] = `
+<div
+  class="addressform"
+>
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <div
+    data-testid="city-state-postalcode"
+  >
+    <span>
+       Miami, 
+    </span>
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <!---->
+</div>
+`;
+
+exports[`AddressView shows partial city, state, and postal code line 2`] = `
+<div
+  class="addressform"
+>
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <div
+    data-testid="city-state-postalcode"
+  >
+    <!---->
+     
+    <span>
+      
+            Florida
+        
+    </span>
+     
+    <!---->
+  </div>
+   
+  <!---->
+</div>
+`;
+
+exports[`AddressView shows partial city, state, and postal code line 3`] = `
+<div
+  class="addressform"
+>
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <div
+    data-testid="city-state-postalcode"
+  >
+    <!---->
+     
+    <!---->
+     
+    <span>
+      
+            12345
+        
+    </span>
+  </div>
+   
+  <!---->
+</div>
+`;
+
+exports[`AddressView shows title when hasTitle is true 1`] = `
+<div
+  class="addressform"
+>
+  <div>
+    <strong>
+      My Title
+    </strong>
+    <br />
+  </div>
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+   
+  <!---->
+</div>
+`;

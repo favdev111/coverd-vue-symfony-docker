@@ -1,0 +1,68 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+#        in_memory: { memory: ~ }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_login_logout
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+
+        # API ROUTES
+        # To restrict the routes below by role, update the role value to the minimum role for access
+        # For example, ROLE_USER will allow
+        # Reference - https://symfony.com/doc/current/security/access_control.html
+
+        #- { path: ^/api/clients, roles: ROLE_USER}
+        #- { path: ^/api/groups, roles: ROLE_USER}
+        #- { path: ^/api/orders/adjustment, roles: ROLE_USER}
+        #- { path: ^/api/orders/distribution, roles: ROLE_USER}
+        #- { path: ^/api/orders/merchandise, roles: ROLE_USER}
+        #- { path: ^/api/orders/partner, roles: ROLE_USER}
+        #- { path: ^/api/orders/supply, roles: ROLE_USER}
+        #- { path: ^/api/orders/transfer, roles: ROLE_USER}
+        #- { path: ^/api/partners, roles: ROLE_USER}
+        #- { path: ^/api/partners/distribution-methods, roles: ROLE_USER}
+        #- { path: ^/api/partners/fulfillment-periods, roles: ROLE_USER}
+        #- { path: ^/api/products, roles: ROLE_USER}
+        #- { path: ^/api/product-categories, roles: ROLE_USER}
+        #- { path: ^/api/reports, roles: ROLE_USER}
+        #- { path: ^/api/stock-levels, roles: ROLE_USER}
+        #- { path: ^/api/storage-locations, roles: ROLE_USER, methods: [GET]}
+        #- { path: ^/api/storage-locations, roles: ROLE_USER, methods: [POST]}
+        #- { path: ^/api/storage-locations, roles: ROLE_USER, methods: [PATCH]}
+        #- { path: ^/api/storage-locations, roles: ROLE_USER, methods: [DELETE]}
+        #- { path: ^/api/suppliers, roles: ROLE_USER}
+        #- { path: ^/api/users, roles: ROLE_USER}
+        #- { path: ^/api/warehouses, roles: ROLE_USER}
+
+        # WEB ROUTES
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }

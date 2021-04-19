@@ -1,0 +1,25 @@
+{% extends "emails/base-email.txt.twig" %}
+
+{% block header_text %}Order updated: {{ order.sequenceNo }}{% endblock %}
+
+{% block content %}
+Hello {{ partner.title }},
+Here is an update on your Partner Order.
+
+View Order: {{ url('app_home_home', {'_fragment': '/orders/partner/' ~ order.id}) }}
+
+
+### Order Details ###
+
+{{ "%-30s"|format('Product') }} {{ "%10s"|format('Quantity') }}
+------------------------------ ----------
+{% for line in order.getAggregateLineItems()|sort((a, b) => a.product.orderIndex <=> b.product.orderIndex) %}
+{{ "%-30s"|format(line.product.name) }} {{ "%10s"|format(line.quantity) }}
+{% endfor %}
+
+
+Morbi nec euismod sapien, vitae vulputate tellus. Mauris condimentum
+orci ut metus ornare ultrices. Mauris ac lorem ut orci congue consequat. Nam auctor tortor ut faucibus
+cursus. Fusce dapibus metus ut massa ultrices commodo. Maecenas a purus sapien. Ut ornare tristique ex,
+nec pellentesque dolor vulputate ut.
+{% endblock %}

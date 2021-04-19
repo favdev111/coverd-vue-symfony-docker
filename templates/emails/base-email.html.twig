@@ -1,0 +1,28 @@
+{% apply inky_to_html|inline_css(source('@styles/foundation-emails.css'), source('@styles/emails.css')) %}
+    <wrapper class="bg-light-gray">
+        <container>
+            <row class="bg-light-gray">
+                <columns>
+                        <h1 class="mb-0">
+                            <center>{{ bank_name }}</center>
+                        </h1>
+                </columns>
+            </row>
+        </container>
+    </wrapper>
+    <wrapper>
+        <container>
+            <row class="bg-blue">
+                <columns>
+                    <h2 class="light mb-0">{% block header_text %}{% endblock %}</h2>
+                </columns>
+            </row>
+        </container>
+    </wrapper>
+    <wrapper>
+        <container class="bordered">
+            {% block content %}
+            {% endblock %}
+        </container>
+    </wrapper>
+{% endapply %}

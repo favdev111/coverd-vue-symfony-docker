@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    {#<meta name="csrf-token" content="{{ csrf_token() }}">#}
+
+    <title>coverd.io</title>
+
+    {% block stylesheets %}
+    <!-- Styles -->
+        <link rel="stylesheet" href="/build/fonts.css">
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+</head>
+<body class="skin-blue sidebar-mini">
+<div id="app" class="wrapper">
+    <header class="main-header">
+
+        <!-- Branding Image -->
+        <a class="logo" href="{{ url('app_home_home') }}">
+            <span class="logo-lg"><strong>COVERd</strong></span>
+            <span class="logo-mini"><strong>CVRd</strong></span>
+        </a>
+
+        <div class="navbar navbar-static-top">
+            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i>
+            </a>
+            <!-- Right Side Of Navbar -->
+            <div class="navbar-custom-menu">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <userbar></userbar>
+                {% endif %}
+                <ul class="nav navbar-nav">
+                    <!-- Authentication Links -->
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" id="user-dropdown" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.email }}
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="user-dropdown">
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a href="{{ url('app_login_logout') }}" class="btn btn-default btn-flat"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+
+                            <form id="logout-form" action="{{ url('app_login_logout') }}" method="POST"
+                                  style="display: none;">
+                                {#{{ csrf_field() }}#}
+                            </form>
+                        </ul>
+                        {% else %}
+                            <li><a href="{{ url('app_login_login') }}">Login</a></li>
+                            <!--<li><a href="{{ url('app_login_register') }}">Register</a></li>!-->
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <nav id="sidebar" class="main-sidebar">
+        <sidebar></sidebar>
+    </nav>
+    <main class="content-wrapper">
+        {% block content %}
+        <exceptionpane :exceptions="exceptions"></exceptionpane>
+        <router-view></router-view>
+        {% endblock %}
+    </main>
+    <footer class="main-footer no-print">
+        <strong>Copyright © <a href="https://happybottoms.org">HappyBottoms</a>.</strong> All rights
+        reserved.
+    </footer>
+</div>
+
+<!-- Scripts -->
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+
+    <!-- Renders app.js & a webpack runtime.js file
+        <script src="/build/runtime.js"></script>
+        <script src="/build/app.js"></script> -->
+{% endblock %}
+{#<script src="/build//all.js"></script>#}
+</body>
+</html>
+
